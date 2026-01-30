@@ -1,6 +1,8 @@
 package im.wity.dto;
 
-public class SignUpRequestDto {
-    String email;
-    String password;
-}
+import im.wity.constant.AuthProvider;
+
+public record SignUpRequestDto (
+        String email,
+        String password,
+        AuthProvider authProvider){}
