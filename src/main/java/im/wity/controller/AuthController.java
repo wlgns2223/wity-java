@@ -1,6 +1,6 @@
 package im.wity.controller;
 
-import im.wity.dto.SignUpRequestDto;
+import im.wity.dto.LocalSignUpRequestDto;
 import im.wity.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +15,8 @@ public class AuthController {
 
 
     @PostMapping
-    ResponseEntity<String> signUp(SignUpRequestDto signUpRequestDto){
-        authService.signUp(signUpRequestDto);
+    ResponseEntity<String> signUp(LocalSignUpRequestDto localSignUpRequestDto){
+        authService.signUp(localSignUpRequestDto);
         return ResponseEntity.ok("");
     }
 }

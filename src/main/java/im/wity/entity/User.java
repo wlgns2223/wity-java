@@ -15,13 +15,14 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 @NoArgsConstructor(access =AccessLevel.PROTECTED)
-@EqualsAndHashCode
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@Builder(access = AccessLevel.PRIVATE)
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String email;
 
     @Embedded
@@ -34,6 +35,15 @@ public class User {
     @Column(nullable = false,name = "is_Oauth")
     private Boolean isOauth;
 
+    @Column
+    private String defaultPageName;
+
+    @Column
+    private Boolean isDeleted;
+
+    @Column
+    private String userName;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -42,15 +52,18 @@ public class User {
     @Column(updatable = false, nullable = false)
     private LocalDateTime updatedAt;
 
-    @Builder
-    public User(String email,Password password, AuthProvider authProvider){
-        this.email = email;
-        this.password = password;
-        this.authProvider = authProvider;
-        this.isOauth = authProvider.isOauth();
-    }
-
-    public static User createLocalUser(String email, String password, AuthProvider authProvider){
-        return User.builder().email(email).password(Password.Of(password)).authProvider(authProvider).build();
+    public static User createLocalUser(
+            String email,
+            String password,
+            String defaultPageName,
+            String userName){
+        return User.builder()
+                .email(email)
+                .password(Password.Of(password))
+                .authProvider(AuthProvider.LOCAL)
+                .defaultPageName(defaultPageName)
+                .userName(userName)
+                .isDeleted(false)
+                .build();
     }
 }

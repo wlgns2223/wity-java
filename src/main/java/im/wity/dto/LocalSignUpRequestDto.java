@@ -2,7 +2,9 @@ package im.wity.dto;
 
 import im.wity.constant.AuthProvider;
 
-public record SignUpRequestDto (
+public record LocalSignUpRequestDto(
         String email,
         String password,
-        AuthProvider authProvider){}
+        String defaultPageName,
+        String userName
+        ){}

@@ -6,7 +6,7 @@ public enum AuthProvider {
     ;
 
     private String value;
-    private AuthProvider(String value) {this.value = value; }
+    AuthProvider(String value) {this.value = value; }
 
     public boolean isOauth(){
         return this != LOCAL;
