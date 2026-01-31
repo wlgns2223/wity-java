@@ -18,18 +18,16 @@ public class UserService {
 
     @Transactional
     public User createLocal(LocalSignUpRequestDto localSignUpRequestDto){
-
-
         if(userRepository.existsUserByEmail(localSignUpRequestDto.email())){
             throw new IllegalArgumentException(localSignUpRequestDto.email() + "이미 있습니다.");
 
         }
 
-        return User.createLocalUser(
+        return userRepository.save(User.createLocalUser(
                 localSignUpRequestDto.email(),
                 localSignUpRequestDto.password(),
                 localSignUpRequestDto.defaultPageName(),
                 localSignUpRequestDto.userName()
-        );
+        ));
     }
 }

@@ -57,12 +57,15 @@ public class User {
             String password,
             String defaultPageName,
             String userName){
+
+        AuthProvider provider = AuthProvider.LOCAL;
         return User.builder()
                 .email(email)
                 .password(Password.Of(password))
-                .authProvider(AuthProvider.LOCAL)
+                .authProvider(provider)
                 .defaultPageName(defaultPageName)
                 .userName(userName)
+                .isOauth(provider.isOauth())
                 .isDeleted(false)
                 .build();
     }
