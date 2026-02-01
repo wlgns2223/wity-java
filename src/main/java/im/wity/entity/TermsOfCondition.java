@@ -12,7 +12,15 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "terms_of_condition")
+@Table(
+        name = "terms_of_condition",
+        uniqueConstraints = {
+                @UniqueConstraint(
+                        name = "UK_user_type",
+                        columnNames = {"user_id","type"}
+                )
+        }
+)
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -24,7 +32,7 @@ public class TermsOfCondition {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id",nullable = false)
     private User user;
 
     @Enumerated(EnumType.STRING)

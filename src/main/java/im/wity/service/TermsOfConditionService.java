@@ -1,6 +1,5 @@
 package im.wity.service;
 
-import im.wity.constant.TermsOfCondType;
 import im.wity.dto.TermsAgreementDto;
 import im.wity.entity.TermsOfCondition;
 import im.wity.entity.User;

@@ -6,6 +6,7 @@ import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 
@@ -22,11 +23,17 @@ public class UserService {
 
         }
 
-        return userRepository.save(User.createLocalUser(
-                userCreateDto.email(),
-                userCreateDto.password(),
-                userCreateDto.defaultPageName(),
-                userCreateDto.userName()
-        ));
+        try{
+            return userRepository.save(User.createLocalUser(
+                    userCreateDto.email(),
+                    userCreateDto.password(),
+                    userCreateDto.defaultPageName(),
+                    userCreateDto.userName()
+            ));
+
+        } catch (DataIntegrityViolationException exception){
+            throw new IllegalArgumentException(userCreateDto.email() + "는 이미 가입된 이메일입니다.");
+        }
+
     }
 }
