@@ -1,11 +1,16 @@
 package im.wity.constant;
 
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+
+@Getter
+@RequiredArgsConstructor
 public enum TermsOfCondType {
-    MARKETING("marketing"),
-    INFORMATION_USAGE("informationUsage"),
-    SERVICE_USAGE("serviceUsage");
+    MARKETING("marketing",false),
+    INFORMATION_USAGE("informationUsage",true),
+    SERVICE_USAGE("serviceUsage",true);
 
-    private String value;
+    private final String value;
+    private final boolean isRequired;
 
-    TermsOfCondType(String value) {this.value = value; }
 }

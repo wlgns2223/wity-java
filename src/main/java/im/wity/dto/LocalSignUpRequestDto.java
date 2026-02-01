@@ -1,10 +1,16 @@
 package im.wity.dto;
 
-import im.wity.constant.AuthProvider;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 
 public record LocalSignUpRequestDto(
-        String email,
-        String password,
-        String defaultPageName,
-        String userName
-        ){}
+
+        @NotNull
+        @Valid
+        UserCreateDto userCreateDto,
+
+        @NotNull
+        @Valid
+        TermsAgreementDto terms
+) {
+}

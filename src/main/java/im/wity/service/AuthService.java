@@ -2,7 +2,6 @@ package im.wity.service;
 
 import im.wity.dto.LocalSignUpRequestDto;
 import im.wity.entity.User;
-import im.wity.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,10 +10,16 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
+    private final TermsOfConditionService termsOfConditionService;
+    private final EmailService emailService;
 
     @Transactional
-    public void signUp(LocalSignUpRequestDto localSignUpRequestDto){
-        User user = null;
+    public User signUp(LocalSignUpRequestDto localSignUpRequestDto) throws InterruptedException {
+        User user = userService.createLocal(localSignUpRequestDto.userCreateDto());
+        termsOfConditionService.createTerm(localSignUpRequestDto.terms(), user);
+        emailService.sendEmail(user.getEmail());
+
+        return user;
     }
 }

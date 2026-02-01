@@ -1,6 +1,7 @@
 package im.wity.controller;
 
 import im.wity.dto.LocalSignUpRequestDto;
+import im.wity.entity.User;
 import im.wity.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class AuthController {
 
 
     @PostMapping
-    ResponseEntity<String> signUp(LocalSignUpRequestDto localSignUpRequestDto){
-        authService.signUp(localSignUpRequestDto);
-        return ResponseEntity.ok("");
+    ResponseEntity<User> signUp(LocalSignUpRequestDto localSignUpRequestDto) throws InterruptedException {
+
+        return ResponseEntity.ok(authService.signUp(localSignUpRequestDto));
     }
 }
