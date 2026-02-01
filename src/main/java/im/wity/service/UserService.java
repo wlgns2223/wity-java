@@ -1,5 +1,6 @@
 package im.wity.service;
 
+import im.wity.components.PasswordFactory;
 import im.wity.dto.LocalSignUpRequestDto;
 import im.wity.dto.UserCreateDto;
 import im.wity.entity.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordFactory passwordFactory;
 
     @Transactional
     public User createLocal(UserCreateDto userCreateDto){
@@ -28,7 +30,8 @@ public class UserService {
                     userCreateDto.email(),
                     userCreateDto.password(),
                     userCreateDto.defaultPageName(),
-                    userCreateDto.userName()
+                    userCreateDto.userName(),
+                    passwordFactory
             ));
 
         } catch (DataIntegrityViolationException exception){

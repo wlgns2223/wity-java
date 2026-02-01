@@ -1,5 +1,6 @@
 package im.wity.entity;
 
+import im.wity.components.PasswordFactory;
 import im.wity.constant.AuthProvider;
 import im.wity.entity.vo.Password;
 import jakarta.persistence.*;
@@ -56,12 +57,14 @@ public class User {
             String email,
             String password,
             String defaultPageName,
-            String userName){
+            String userName,
+            PasswordFactory passwordFactory
+            ){
 
         AuthProvider provider = AuthProvider.LOCAL;
         return User.builder()
                 .email(email)
-                .password(Password.Of(password))
+                .password(passwordFactory.create(password))
                 .authProvider(provider)
                 .defaultPageName(defaultPageName)
                 .userName(userName)

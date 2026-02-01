@@ -11,8 +11,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Password {
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    
     @Column(name = "password")
     String encryptedPassword;
 
@@ -20,9 +18,9 @@ public class Password {
         this.encryptedPassword = password;
     }
 
-    public static Password Of(String plain){
+    public static Password Of(String plain, PasswordEncoder passwordEncoder){
         validate(plain);
-        return new Password(encode(plain));
+        return new Password(encode(plain,passwordEncoder));
     }
 
     private static void validate(String plainPassword){
@@ -30,10 +28,12 @@ public class Password {
             throw new IllegalArgumentException("비밀번호가 비어있습니다. ");
         }
 
-        // validation logic...
+        if(plainPassword.length() < 4){
+            throw new IllegalArgumentException("비밀번호는 4자리 이상이어야합니다.");
+        }
     }
 
-    private static String encode(String plainPassword){
+    private static String encode(String plainPassword,PasswordEncoder passwordEncoder){
 
         return passwordEncoder.encode(plainPassword);
     }
