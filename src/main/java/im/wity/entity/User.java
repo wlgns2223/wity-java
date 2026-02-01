@@ -55,16 +55,15 @@ public class User {
 
     public static User createLocalUser(
             String email,
-            String password,
+            Password encodedPassword,
             String defaultPageName,
-            String userName,
-            PasswordFactory passwordFactory
+            String userName
             ){
 
         AuthProvider provider = AuthProvider.LOCAL;
         return User.builder()
                 .email(email)
-                .password(passwordFactory.create(password))
+                .password(encodedPassword)
                 .authProvider(provider)
                 .defaultPageName(defaultPageName)
                 .userName(userName)

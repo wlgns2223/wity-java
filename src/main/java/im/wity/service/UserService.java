@@ -28,10 +28,9 @@ public class UserService {
         try{
             return userRepository.save(User.createLocalUser(
                     userCreateDto.email(),
-                    userCreateDto.password(),
+                    passwordFactory.create(userCreateDto.password()),
                     userCreateDto.defaultPageName(),
-                    userCreateDto.userName(),
-                    passwordFactory
+                    userCreateDto.userName()
             ));
 
         } catch (DataIntegrityViolationException exception){
