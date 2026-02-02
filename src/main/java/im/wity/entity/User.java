@@ -1,8 +1,7 @@
 package im.wity.entity;
 
-import im.wity.components.PasswordFactory;
 import im.wity.constant.AuthProvider;
-import im.wity.entity.vo.Password;
+import im.wity.vo.Password;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;

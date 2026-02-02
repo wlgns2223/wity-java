@@ -17,7 +17,7 @@ public class AuthService {
     private final EmailService emailService;
 
     @Transactional
-    public User signUp(LocalSignUpRequestDto localSignUpRequestDto) throws InterruptedException {
+    public User signUp(LocalSignUpRequestDto localSignUpRequestDto)  {
         User user = userService.createLocal(localSignUpRequestDto.userCreateDto());
         termsOfConditionService.createTerm(localSignUpRequestDto.terms(), user);
         emailService.sendEmail(user.getEmail());

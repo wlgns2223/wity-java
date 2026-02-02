@@ -1,6 +1,6 @@
 package im.wity.components;
 
-import im.wity.entity.vo.Password;
+import im.wity.vo.Password;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;

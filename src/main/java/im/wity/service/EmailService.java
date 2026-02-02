@@ -6,9 +6,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmailService {
 
-    public boolean sendEmail( @Email String email) throws InterruptedException {
+    public boolean sendEmail( @Email String email) {
 
-        Thread.sleep(1000);
-        return true;
+        try{
+            Thread.sleep(1000);
+            return true;
+        }  catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
