@@ -47,7 +47,7 @@ public class TermsOfCondition {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(updatable = false, nullable = false)
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
 
 }
