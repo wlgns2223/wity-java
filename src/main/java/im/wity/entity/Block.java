@@ -1,6 +1,7 @@
 package im.wity.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
@@ -9,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+@Getter
 @Entity
 @Table(name = "block")
 public class Block {
@@ -29,6 +31,9 @@ public class Block {
     @Column(nullable = false)
     private Integer clickCount;
 
+    @Column(nullable = false)
+    private Integer blockOrder;
+
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "json")
     private Map<String, Object> customAttrs;
@@ -45,6 +50,14 @@ public class Block {
     @Column(nullable = false)
     private LocalDateTime updatedAt;
 
+    public void setNameCard(NameCard nameCard){
+        if(this.nameCard == nameCard) return;
 
+        if(this.nameCard != null){
+            this.nameCard.getBlocks().remove(this);
+        }
+        this.nameCard = nameCard;
+        nameCard.getBlocks().add(this);
+    }
 
 }

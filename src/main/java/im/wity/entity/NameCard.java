@@ -1,11 +1,15 @@
 package im.wity.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
+@Getter
 @Entity
 @Table(name = "name_card",
         uniqueConstraints = {
@@ -31,6 +35,9 @@ public class NameCard {
     @Column(nullable = false)
     private Boolean isDeleted;
 
+    @OneToMany(mappedBy = "nameCard")
+    private Set<Block> blocks = new LinkedHashSet<>();
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
@@ -38,5 +45,12 @@ public class NameCard {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    public void addBlock(Block block){
+        this.blocks.add(block);
+        if(block.getNameCard() != this){
+            block.setNameCard(this);
+        }
+    }
 
 }
