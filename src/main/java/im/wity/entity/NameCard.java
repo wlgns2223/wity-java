@@ -38,6 +38,10 @@ public class NameCard {
     @OneToMany(mappedBy = "nameCard")
     private Set<Block> blocks = new LinkedHashSet<>();
 
+    @OneToOne
+    @JoinColumn(name = "avatar_id")
+    private Avatar avatar;
+
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdAt;
