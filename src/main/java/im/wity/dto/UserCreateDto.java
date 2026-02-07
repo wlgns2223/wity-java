@@ -1,5 +1,6 @@
 package im.wity.dto;
 
+import im.wity.vo.PageName;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -16,8 +17,8 @@ public record UserCreateDto(
 
         @NotBlank
         @Pattern(
-                regexp = "^[a-zA-Z0-9-_]+$",
-                message = "페이지명은 영문, 숫자, -, _만 가능합니다."
+                regexp = PageName.Validation.VALID_PATTERN,
+                message = PageName.Validation.message
         )
         String defaultPageName,
 

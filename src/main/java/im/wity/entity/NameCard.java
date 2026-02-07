@@ -1,5 +1,7 @@
 package im.wity.entity;
 
+import im.wity.vo.PageName;
+import im.wity.vo.PageNameConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
@@ -30,7 +32,8 @@ public class NameCard {
     private User user;
 
     @Column(nullable = false)
-    private String pageName;
+    @Convert(converter = PageNameConverter.class)
+    private PageName pageName;
 
     @Column(nullable = false)
     private Boolean isDeleted;
