@@ -3,7 +3,7 @@ package im.wity.entity;
 import im.wity.vo.PageName;
 import im.wity.vo.PageNameConverter;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -21,6 +21,8 @@ import java.util.Set;
         )
         }
 )
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class NameCard {
 
     @Id
@@ -52,6 +54,14 @@ public class NameCard {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Builder
+    public NameCard(User user, PageName pageName,Avatar avatar ){
+        this.user = user;
+        this.pageName = pageName;
+        this.isDeleted = false;
+        this.avatar = avatar;
+    }
 
     public void addBlock(Block block){
         this.blocks.add(block);
