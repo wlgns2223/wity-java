@@ -1,8 +1,7 @@
 package im.wity.service;
 
 import im.wity.components.PasswordFactory;
-import im.wity.dto.LocalSignUpRequestDto;
-import im.wity.dto.UserCreateDto;
+import im.wity.dto.UserCreate;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -19,23 +18,17 @@ public class UserService {
     private final PasswordFactory passwordFactory;
 
     @Transactional
-    public User createLocal(UserCreateDto userCreateDto){
-        if(userRepository.existsUserByEmail(userCreateDto.email())){
-            throw new IllegalArgumentException(userCreateDto.email() + "이미 있습니다.");
-
+    public User createLocal(UserCreate userCreate){
+        if(userRepository.existsUserByEmail(userCreate.email())){
+            throw new IllegalArgumentException(userCreate.email() + "는 이미 가입된 이메일입니다.");
         }
 
-        try{
-            return userRepository.save(User.createLocalUser(
-                    userCreateDto.email(),
-                    passwordFactory.create(userCreateDto.password()),
-                    userCreateDto.defaultPageName(),
-                    userCreateDto.userName()
-            ));
-
-        } catch (DataIntegrityViolationException exception){
-            throw new IllegalArgumentException(userCreateDto.email() + "는 이미 가입된 이메일입니다.");
-        }
+        return userRepository.save(User.createLocalUser(
+                userCreate.email(),
+                passwordFactory.create(userCreate.password()),
+                userCreate.defaultPageName(),
+                userCreate.userName()
+        ));
 
     }
 }

@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-public record UserCreateDto(
+public record UserCreate(
         @NotBlank
         @Email
         String email,
@@ -18,9 +18,9 @@ public record UserCreateDto(
         @NotBlank
         @Pattern(
                 regexp = PageName.Validation.VALID_PATTERN,
-                message = PageName.Validation.message
+                message = PageName.Validation.MESSAGE
         )
-        String defaultPageName,
+        PageName defaultPageName,
 
         @NotBlank
         @Pattern(

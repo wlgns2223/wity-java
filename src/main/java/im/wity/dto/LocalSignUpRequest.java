@@ -3,11 +3,11 @@ package im.wity.dto;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
-public record LocalSignUpRequestDto(
+public record LocalSignUpRequest(
 
         @NotNull
         @Valid
-        UserCreateDto userCreateDto,
+        UserCreate userCreate,
 
         @NotNull
         @Valid

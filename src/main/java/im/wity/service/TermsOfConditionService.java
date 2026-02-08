@@ -15,7 +15,7 @@ public class TermsOfConditionService {
 
     private final TermsOfConditionRepository termsRepository;
 
-    public List<TermsOfCondition> createTerm(TermsAgreementDto termsDto, User user){
+    public void createTerm(TermsAgreementDto termsDto, User user){
 
         List<TermsOfCondition> terms = termsDto
                 .agreements()
@@ -24,7 +24,7 @@ public class TermsOfConditionService {
                 .map(e -> TermsOfCondition.builder().user(user).type(e.getKey()).agreed(e.getValue()).build())
                 .toList();
 
-        return termsRepository.saveAll(terms);
+        termsRepository.saveAll(terms);
 
     }
 

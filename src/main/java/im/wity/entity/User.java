@@ -1,6 +1,8 @@
 package im.wity.entity;
 
 import im.wity.constant.AuthProvider;
+import im.wity.vo.PageName;
+import im.wity.vo.PageNameConverter;
 import im.wity.vo.Password;
 import jakarta.persistence.*;
 import lombok.*;
@@ -36,7 +38,8 @@ public class User {
     private Boolean isOauth;
 
     @Column
-    private String defaultPageName;
+    @Convert(converter = PageNameConverter.class)
+    private PageName defaultPageName;
 
     @Column
     private Boolean isDeleted;
@@ -55,7 +58,7 @@ public class User {
     public static User createLocalUser(
             String email,
             Password encodedPassword,
-            String defaultPageName,
+            PageName defaultPageName,
             String userName
             ){
 

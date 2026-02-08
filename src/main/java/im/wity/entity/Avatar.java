@@ -21,7 +21,6 @@ public class Avatar {
         public static final int MAX_LEN = 255;
     }
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -54,6 +53,10 @@ public class Avatar {
         this.bio = bio;
         this.isFolded = false;
         this.image = image;
+    }
+
+    public static Avatar init(){
+        return new Avatar();
     }
 
 

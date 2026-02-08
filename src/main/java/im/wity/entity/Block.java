@@ -1,18 +1,23 @@
 package im.wity.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 @Getter
 @Entity
 @Table(name = "block")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Block {
 
     @Id
@@ -49,6 +54,17 @@ public class Block {
     @LastModifiedDate
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
+    @Builder
+    public Block(String type, Map<String,Object> customAttrs, NameCard nameCard){
+        this.folded = false;
+        this.active = true;
+        this.type = type;
+        this.clickCount = 0;
+        this.customAttrs = customAttrs;
+        this.nameCard = nameCard;
+        setNameCard(nameCard);
+    }
 
     public void setNameCard(NameCard nameCard){
         if(this.nameCard == nameCard) return;

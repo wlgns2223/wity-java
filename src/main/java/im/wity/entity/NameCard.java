@@ -40,10 +40,10 @@ public class NameCard {
     @Column(nullable = false)
     private Boolean isDeleted;
 
-    @OneToMany(mappedBy = "nameCard")
+    @OneToMany(mappedBy = "nameCard",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Block> blocks = new LinkedHashSet<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "avatar_id")
     private Avatar avatar;
 

@@ -10,7 +10,8 @@ public record AvatarCreate(
         String bio,
         String image) {
 
-    public Avatar toEntity(){
+    public Avatar toEntity() {
         return Avatar.builder().name(name).bio(bio).image(image).build();
     }
+
 }
