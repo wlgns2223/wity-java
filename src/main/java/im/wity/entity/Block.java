@@ -66,6 +66,10 @@ public class Block {
         setNameCard(nameCard);
     }
 
+    protected void assignOrder(int order){
+        this.blockOrder = order;
+    }
+
     public void setNameCard(NameCard nameCard){
         if(this.nameCard == nameCard) return;
 

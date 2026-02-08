@@ -24,6 +24,7 @@ public class NameCardService {
                         .user(nameCardCreate.user())
                         .avatar(nameCardCreate.avatar())
                         .pageName(nameCardCreate.pageName())
+                        .blocks(nameCardCreate.blocks())
                         .build()
         );
     }

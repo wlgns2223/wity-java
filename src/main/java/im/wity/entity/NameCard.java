@@ -56,11 +56,12 @@ public class NameCard {
     private LocalDateTime updatedAt;
 
     @Builder
-    public NameCard(User user, PageName pageName,Avatar avatar ){
+    private NameCard(User user, PageName pageName,Avatar avatar,Set<Block> blocks ){
         this.user = user;
         this.pageName = pageName;
         this.isDeleted = false;
         this.avatar = avatar;
+        this.blocks = blocks;
     }
 
     public void addBlock(Block block){
