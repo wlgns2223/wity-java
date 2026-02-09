@@ -3,10 +3,7 @@ package im.wity.entity;
 import im.wity.constant.BlockAttrKey;
 import im.wity.constant.BlockType;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
@@ -20,6 +17,7 @@ import java.util.Map;
 @Entity
 @Table(name = "block")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@ToString
 public class Block {
 
     @Id
@@ -48,6 +46,7 @@ public class Block {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "name_card_id", nullable = false)
+    @ToString.Exclude
     private NameCard nameCard;
 
     @CreatedDate
