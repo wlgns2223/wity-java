@@ -48,7 +48,7 @@ public class Avatar {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Avatar(String name, String bio, String image){
+    private Avatar(String name, String bio, String image){
         this.name = name;
         this.bio = bio;
         this.isFolded = false;

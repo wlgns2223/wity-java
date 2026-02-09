@@ -65,6 +65,12 @@ public class NameCard {
     }
 
     public void addBlock(Block block){
+        if(this.blocks.isEmpty()){
+            block.assignOrder(0);
+        } else {
+            block.assignOrder(this.blocks.size());
+        }
+
         this.blocks.add(block);
         if(block.getNameCard() != this){
             block.setNameCard(this);

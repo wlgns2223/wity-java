@@ -1,5 +1,7 @@
 package im.wity.entity;
 
+import im.wity.constant.BlockAttrKey;
+import im.wity.constant.BlockType;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -31,7 +33,8 @@ public class Block {
     private Boolean active;
 
     @Column(nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    private BlockType type;
 
     @Column(nullable = false)
     private Integer clickCount;
@@ -41,7 +44,7 @@ public class Block {
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "json")
-    private Map<String, Object> customAttrs;
+    private Map<BlockAttrKey, Object> customAttrs;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "name_card_id", nullable = false)
@@ -56,14 +59,12 @@ public class Block {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Block(String type, Map<String,Object> customAttrs, NameCard nameCard){
+    public Block(BlockType type, Map<BlockAttrKey,Object> customAttrs){
         this.folded = false;
         this.active = true;
         this.type = type;
         this.clickCount = 0;
         this.customAttrs = customAttrs;
-        this.nameCard = nameCard;
-        setNameCard(nameCard);
     }
 
     protected void assignOrder(int order){
