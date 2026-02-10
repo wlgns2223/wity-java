@@ -8,7 +8,7 @@ import lombok.Getter;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class PageName {
     public static final class Validation {
-        public static final String VALID_PATTERN = "a-zA-Z0-9-_";
+        public static final String VALID_PATTERN = "^[a-zA-Z0-9-_]+$";
         public static final String MESSAGE = "페이지명은 영문, 숫자, -, _만 가능합니다.";
     }
 
