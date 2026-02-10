@@ -7,18 +7,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-public record TermsAgreementDto(
-        @NotBlank(message = "약관 동의는 필수입니다.")
-        Map<TermsOfCondType,Boolean> agreements)
-{
+public record TermsAgreementDto( Map<TermsOfCondType,Boolean> agreements)  {
+
     public TermsAgreementDto {
         if(agreements == null || agreements.isEmpty()){
             throw new IllegalArgumentException("약관 동의는 필수입니다.");
         }
-        validateRequiredTerms();
+        validateRequiredTerms(agreements);
     }
 
-    public void validateRequiredTerms(){
+    private static void validateRequiredTerms(Map<TermsOfCondType,Boolean> agreements){
         List<TermsOfCondType> terms = Arrays.stream(TermsOfCondType.values())
                 .filter(TermsOfCondType::isRequired)
                 .filter(type -> !Boolean.TRUE.equals(agreements.get(type)))

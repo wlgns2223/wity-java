@@ -1,5 +1,6 @@
 package im.wity.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import im.wity.constant.AuthProvider;
 import im.wity.vo.PageName;
 import im.wity.vo.PageNameConverter;
@@ -28,6 +29,7 @@ public class User {
     private String email;
 
     @Embedded
+    @JsonIgnore
     private Password password;
 
     @Enumerated(EnumType.STRING)

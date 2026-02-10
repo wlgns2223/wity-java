@@ -8,6 +8,8 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -18,6 +20,7 @@ import java.util.Map;
 @Table(name = "block")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
+@EntityListeners(AuditingEntityListener.class)
 public class Block {
 
     @Id
