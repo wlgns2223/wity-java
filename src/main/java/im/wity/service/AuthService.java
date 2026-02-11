@@ -41,4 +41,9 @@ public class AuthService {
 
         return user;
     }
+
+    public void delete(Long id){
+        userService.delete(id);
+
+    }
 }

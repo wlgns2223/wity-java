@@ -5,11 +5,9 @@ import im.wity.entity.User;
 import im.wity.service.AuthService;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -25,5 +23,11 @@ public class AuthController {
             LocalSignUpRequest localSignUpRequest) {
 
         return ResponseEntity.ok(authService.signUp(localSignUpRequest));
+    }
+
+    @DeleteMapping("/{id}")
+    ResponseEntity<Void> delete(@PathVariable Long id){
+        authService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

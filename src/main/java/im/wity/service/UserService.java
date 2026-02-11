@@ -28,6 +28,13 @@ public class UserService {
                 userCreate.defaultPageName(),
                 userCreate.userName()
         ));
+    }
 
+    public void delete(Long id){
+        if (!userRepository.existsUserById(id)) {
+            throw new IllegalArgumentException("삭제하려는 아이디가 없습니다.");
+        }
+
+        userRepository.deleteById(id);
     }
 }
