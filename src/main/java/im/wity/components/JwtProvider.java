@@ -3,6 +3,7 @@ package im.wity.components;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.io.Encoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,7 +22,7 @@ public class JwtProvider {
             @Value("${jwt.access-expiration-ms}") long accessExpirationMS,
             @Value("${jwt.refresh-expiration-ms}") long refreshExpirationMS
     ) {
-        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret));
+        this.secretKey = Keys.hmacShaKeyFor(Decoders.BASE64.decode(secret + Encoders.BASE64.encode(Jwts.SIG.HS256.key().build().getEncoded())));
         this.accessExpirationMS = accessExpirationMS;
         this.refreshExpirationMS = refreshExpirationMS;
     }
@@ -41,7 +42,7 @@ public class JwtProvider {
                 .claim("type", tokenType)
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + expirationMS))
-                .signWith(secretKey)
+                .signWith(secretKey,Jwts.SIG.HS256)
                 .compact();
     }
 

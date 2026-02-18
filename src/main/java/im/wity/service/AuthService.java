@@ -4,7 +4,7 @@ import im.wity.components.JwtProvider;
 import im.wity.components.PasswordFactory;
 import im.wity.dto.LocalSignInRequest;
 import im.wity.dto.LocalSignUpRequest;
-import im.wity.dto.LoginResponse;
+import im.wity.dto.LocalSignInResponse;
 import im.wity.dto.NameCardCreate;
 import im.wity.entity.Avatar;
 import im.wity.entity.Block;
@@ -13,8 +13,9 @@ import im.wity.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.coyote.BadRequestException;
+import org.springframework.security.access.AuthorizationServiceException;
 import org.springframework.security.authentication.AuthenticationServiceException;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -54,20 +55,21 @@ public class AuthService {
     }
 
     @Transactional
-    public LoginResponse signIn(LocalSignInRequest signInRequest){
+    public LocalSignInResponse signIn(LocalSignInRequest signInRequest){
         User user = userService.findByEmail(signInRequest.email())
                 .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
 
         if (!passwordFactory.compare(signInRequest.password(), user.getPassword())) {
-            throw new AuthenticationServiceException("이메일 또는 비밀번호가 올바르지 않습니다.");
+            throw new RuntimeException( "이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 
         String accessToken = jwtProvider.createAccessToken(user.getEmail());
         String refreshToken = jwtProvider.createRefreshToken(user.getEmail());
-        return LoginResponse.builder()
+        return LocalSignInResponse.builder()
                 .accessToken(accessToken)
                 .refreshToken(refreshToken)
                 .accessExpirationSeconds(jwtProvider.getAccessExpirationSeconds())
+                .user(user)
                 .build();
     }
 }
