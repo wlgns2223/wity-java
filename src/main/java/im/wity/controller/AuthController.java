@@ -25,13 +25,9 @@ public class AuthController {
             @NotNull
             LocalSignUpRequest localSignUpRequest) {
 
-        User user = authService.signUp(localSignUpRequest);
-        URI location = ServletUriComponentsBuilder
-                .fromPath("/api/user/{id}")
-                .buildAndExpand(user.getId())
-                .toUri();
+        authService.signUp(localSignUpRequest);
 
-        return ResponseEntity.created(location).body(user);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")

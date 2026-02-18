@@ -1,0 +1,4 @@
+jwt:
+  secret: "c2VjcmV0Cg=="
+  access-expiration-ms: 3600000
+  refresh-expiration-ms: 604800000

@@ -6,7 +6,10 @@ import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -36,5 +39,10 @@ public class UserService {
         }
 
         userRepository.deleteById(id);
+    }
+
+    public Optional<User> findByEmail(String email){
+        return userRepository.findByEmail(email);
+
     }
 }

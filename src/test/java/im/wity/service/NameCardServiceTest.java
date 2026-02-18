@@ -43,7 +43,6 @@ public class NameCardServiceTest {
                 .user(user)
                 .pageName(user.getDefaultPageName())
                 .avatar(avatar)
-                .blocks(blocks)
                 .build();
 
         NameCard expectedNameCard = NameCard.builder()
@@ -76,7 +75,6 @@ public class NameCardServiceTest {
                 .user(user)
                 .pageName(user.getDefaultPageName())
                 .avatar(avatar)
-                .blocks(blocks)
                 .build();
 
         given(nameCardRepository.existsByPageName(user.getDefaultPageName()))

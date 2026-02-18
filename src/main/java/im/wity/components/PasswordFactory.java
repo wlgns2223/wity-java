@@ -15,4 +15,8 @@ public class PasswordFactory  {
         return Password.Of(plainPassword, passwordEncoder);
     }
 
+    public boolean compare(String rawPassword, Password encryptedPassword){
+        return encryptedPassword.matches(rawPassword, passwordEncoder);
+    }
+
 }

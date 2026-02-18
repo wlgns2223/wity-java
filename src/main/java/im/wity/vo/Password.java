@@ -36,4 +36,8 @@ public class Password {
 
         return passwordEncoder.encode(plainPassword);
     }
+
+    public boolean matches(String password,PasswordEncoder encoder){
+        return encoder.matches(password, encryptedPassword);
+    }
 }
