@@ -3,6 +3,7 @@ package im.wity.service;
 import im.wity.dto.NameCardCreate;
 import im.wity.entity.NameCard;
 import im.wity.repository.NameCardRepository;
+import im.wity.vo.PageName;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,14 @@ public class NameCardService {
                         .build()
         );
     }
+
+    @Transactional
+    public NameCard findByPageName(PageName pageName){
+        return nameCardRepository.findByPageName(pageName);
+    }
+
+    @Transactional
+    public void deleteById(Long id){ nameCardRepository.deleteById(id);}
 
 
 }

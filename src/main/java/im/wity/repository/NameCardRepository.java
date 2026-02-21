@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NameCardRepository extends JpaRepository<NameCard,Long> {
     boolean existsByPageName(PageName pageName);
+
+    NameCard findByPageName(PageName pageName);
 }

@@ -19,8 +19,8 @@ import java.util.Map;
 @Entity
 @Table(name = "block")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString
 @EntityListeners(AuditingEntityListener.class)
+@EqualsAndHashCode(exclude = "nameCard")
 public class Block {
 
     @Id
@@ -47,7 +47,7 @@ public class Block {
     @Column(columnDefinition = "json")
     private Map<BlockAttrKey, Object> customAttrs;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "name_card_id", nullable = false)
     @ToString.Exclude
     private NameCard nameCard;
