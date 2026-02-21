@@ -1,12 +1,11 @@
 package im.wity.service;
 
-import im.wity.components.PasswordFactory;
+import im.wity.components.PasswordService;
 import im.wity.dto.UserCreate;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -17,7 +16,7 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final PasswordFactory passwordFactory;
+    private final PasswordService passwordService;
 
     @Transactional
     public User createLocal(UserCreate userCreate){
@@ -27,7 +26,7 @@ public class UserService {
 
         return userRepository.save(User.createLocalUser(
                 userCreate.email(),
-                passwordFactory.create(userCreate.password()),
+                passwordService.create(userCreate.password()),
                 userCreate.defaultPageName(),
                 userCreate.userName()
         ));

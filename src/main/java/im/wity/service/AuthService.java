@@ -1,7 +1,7 @@
 package im.wity.service;
 
 import im.wity.components.JwtProvider;
-import im.wity.components.PasswordFactory;
+import im.wity.components.PasswordService;
 import im.wity.dto.LocalSignInRequest;
 import im.wity.dto.LocalSignUpRequest;
 import im.wity.dto.LocalSignInResponse;
@@ -13,9 +13,6 @@ import im.wity.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
-import org.springframework.security.access.AuthorizationServiceException;
-import org.springframework.security.authentication.AuthenticationServiceException;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -30,7 +27,7 @@ public class AuthService {
     private final EmailService emailService;
     private final NameCardService nameCardService;
     private final BlockService blockService;
-    private final PasswordFactory passwordFactory;
+    private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
 
     @Transactional
@@ -59,7 +56,7 @@ public class AuthService {
         User user = userService.findByEmail(signInRequest.email())
                 .orElseThrow(() -> new IllegalArgumentException("이메일 또는 비밀번호가 올바르지 않습니다."));
 
-        if (!passwordFactory.compare(signInRequest.password(), user.getPassword())) {
+        if (!passwordService.compare(signInRequest.password(),user.getPassword())) {
             throw new RuntimeException( "이메일 또는 비밀번호가 올바르지 않습니다.");
         }
 

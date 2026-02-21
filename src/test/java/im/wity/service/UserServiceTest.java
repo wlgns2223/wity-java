@@ -1,6 +1,6 @@
 package im.wity.service;
 
-import im.wity.components.PasswordFactory;
+import im.wity.components.PasswordService;
 import im.wity.dto.UserCreate;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
@@ -28,7 +28,7 @@ public class UserServiceTest {
     private UserRepository userRepository;
 
     @Mock
-    private PasswordFactory passwordFactory;
+    private PasswordService passwordService;
 
     @InjectMocks
     private UserService userService;
@@ -47,7 +47,7 @@ public class UserServiceTest {
         User expectedUser = User.createLocalUser(email, encodedPassword, pageName, userName);
 
         given(userRepository.existsUserByEmail(email)).willReturn(false);
-        given(passwordFactory.create(password)).willReturn(encodedPassword);
+        given(passwordService.create(password)).willReturn(encodedPassword);
         given(userRepository.save(any(User.class))).willReturn(expectedUser);
 
         // when
@@ -60,7 +60,7 @@ public class UserServiceTest {
         assertThat(result.getDefaultPageName()).isEqualTo(pageName);
 
         verify(userRepository).existsUserByEmail(email);
-        verify(passwordFactory).create(password);
+        verify(passwordService).create(password);
         verify(userRepository).save(any(User.class));
     }
 
@@ -83,7 +83,7 @@ public class UserServiceTest {
                 .hasMessage(email + "는 이미 가입된 이메일입니다.");
 
         verify(userRepository).existsUserByEmail(email);
-        verify(passwordFactory, never()).create(anyString());
+        verify(passwordService, never()).create(anyString());
         verify(userRepository, never()).save(any(User.class));
     }
 }
