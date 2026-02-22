@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,8 +41,8 @@ public class NameCardService {
     @Transactional
     public void deleteById(Long id){ nameCardRepository.deleteById(id);}
 
-    public List<NameCard> findAllByUserId(User user){
-        return nameCardRepository.findAllByUser(user);
+    public boolean existsByUserAndPageName(User user, PageName pageName){
+        return nameCardRepository.existsByUserAndPageName(user, pageName);
     }
 
 

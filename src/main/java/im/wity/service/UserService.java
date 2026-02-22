@@ -56,12 +56,9 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
 
         PageName newDefaultPageName = updateRequest.getNewDefaultPageName();
-        nameCardService.findAllByUserId(user).stream()
-                .map(NameCard::getPageName)
-                .filter(pageName -> pageName.equals(newDefaultPageName))
-                .findAny()
-                .orElseThrow(() -> new RuntimeException(newDefaultPageName + "으로 만든 프로필이 없습니다."));
-
+        if(!nameCardService.existsByUserAndPageName(user, newDefaultPageName)){
+            throw new RuntimeException(newDefaultPageName + "이 없습니다.");
+        }
 
         String newUserName = updateRequest.getNewUserName();
         UserNameValidator.validate(newUserName);

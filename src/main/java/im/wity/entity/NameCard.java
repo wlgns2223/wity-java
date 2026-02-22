@@ -36,7 +36,7 @@ public class NameCard {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     @Convert(converter = PageNameConverter.class)
     private PageName pageName;
 

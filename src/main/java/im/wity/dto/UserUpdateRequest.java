@@ -4,6 +4,7 @@ import im.wity.components.UserNameValidator;
 import im.wity.vo.PageName;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
 
 public class UserUpdateRequest {
 
@@ -19,6 +20,7 @@ public class UserUpdateRequest {
                 regexp = UserNameValidator.VALID_PATTERN,
                 message = UserNameValidator.MESSAGE
         )
+        @Getter
         private String newUserName;
 
 
@@ -26,7 +28,4 @@ public class UserUpdateRequest {
                 return PageName.of(newDefaultPageName);
         }
 
-        public String getNewUserName(){
-                return newUserName;
-        }
 }
