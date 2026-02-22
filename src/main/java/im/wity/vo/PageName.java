@@ -2,7 +2,10 @@ package im.wity.vo;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+
+import java.util.Objects;
 
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
@@ -28,5 +31,22 @@ public class PageName {
         if(!rawPageName.matches(Validation.VALID_PATTERN)){
             throw new RuntimeException(Validation.MESSAGE);
         }
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(pageName);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) return true;
+        if(!(obj instanceof PageName other)) return false;
+        return Objects.equals(other.getPageName(), pageName);
+    }
+
+    @Override
+    public String toString() {
+        return pageName;
     }
 }

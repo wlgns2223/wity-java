@@ -1,9 +1,13 @@
 package im.wity.service;
 
 import im.wity.components.PasswordService;
+import im.wity.components.UserNameValidator;
 import im.wity.dto.UserCreate;
+import im.wity.dto.UserUpdateRequest;
+import im.wity.entity.NameCard;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
+import im.wity.vo.PageName;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordService passwordService;
+    private final NameCardService nameCardService;
 
     @Transactional
     public User createLocal(UserCreate userCreate){
@@ -43,5 +48,24 @@ public class UserService {
     public Optional<User> findByEmail(String email){
         return userRepository.findByEmail(email);
 
+    }
+
+    @Transactional
+    public User update(Long userId,UserUpdateRequest updateRequest){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("존재하지 않는 회원입니다."));
+
+        PageName newDefaultPageName = updateRequest.getNewDefaultPageName();
+        nameCardService.findAllByUserId(user).stream()
+                .map(NameCard::getPageName)
+                .filter(pageName -> pageName.equals(newDefaultPageName))
+                .findAny()
+                .orElseThrow(() -> new RuntimeException(newDefaultPageName + "으로 만든 프로필이 없습니다."));
+
+
+        String newUserName = updateRequest.getNewUserName();
+        UserNameValidator.validate(newUserName);
+        user.update(newDefaultPageName, newUserName);
+        return user;
     }
 }

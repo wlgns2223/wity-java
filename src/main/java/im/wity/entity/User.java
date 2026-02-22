@@ -1,6 +1,5 @@
 package im.wity.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import im.wity.constant.AuthProvider;
 import im.wity.vo.PageName;
 import im.wity.vo.PageNameConverter;
@@ -73,5 +72,11 @@ public class User {
                 .isOauth(provider.isOauth())
                 .isDeleted(false)
                 .build();
+    }
+
+    public void update(PageName defaultPageName,String userName){
+        this.defaultPageName = defaultPageName;
+        this.userName = userName;
+
     }
 }

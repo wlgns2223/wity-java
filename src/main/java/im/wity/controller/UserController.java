@@ -1,16 +1,26 @@
 package im.wity.controller;
 
+import im.wity.dto.UserResponse;
+import im.wity.dto.UserUpdateRequest;
+import im.wity.entity.User;
+import im.wity.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
 
-    @GetMapping
-    public ResponseEntity<String> foo(){
-        return ResponseEntity.ok("foo");
+    private final UserService userService;
+
+
+
+    @PutMapping("/{id}")
+    ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @RequestBody UserUpdateRequest updateRequest){
+        User user = userService.update(id, updateRequest);
+        return ResponseEntity.ok(UserResponse.from(user));
+
     }
 }
