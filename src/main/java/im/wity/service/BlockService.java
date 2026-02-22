@@ -5,6 +5,7 @@ import im.wity.constant.BlockType;
 import im.wity.entity.Block;
 import im.wity.entity.NameCard;
 import im.wity.repository.BlockRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +17,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class BlockService {
 
-    private final BlockRepository blockRepository;
 
+    @Transactional
     public Set<Block> initOnNameCardCreate(){
         Set<Block> blocks = new LinkedHashSet<>();
         blocks.add(Block.builder()
@@ -30,10 +31,7 @@ public class BlockService {
                 .customAttrs(Map.of(BlockAttrKey.KEY, "https://wity.im"))
                 .build()
         );
-
-
         return blocks;
-
 
     }
 }

@@ -26,7 +26,7 @@ public class AuthService {
     private final TermsOfConditionService termsOfConditionService;
     private final EmailService emailService;
     private final NameCardService nameCardService;
-    private final BlockService blockService;
+
     private final PasswordService passwordService;
     private final JwtProvider jwtProvider;
 
@@ -34,15 +34,13 @@ public class AuthService {
     public void signUp(LocalSignUpRequest localSignUpRequest)  {
         User user = userService.createLocal(localSignUpRequest.userCreate());
         termsOfConditionService.createTerm(localSignUpRequest.terms(), user);
-        NameCard nameCard = nameCardService.create(NameCardCreate
+        nameCardService.create(NameCardCreate
                 .builder()
                 .user(user)
                 .pageName(localSignUpRequest.userCreate().defaultPageName())
-                .avatar(Avatar.init())
                 .build()
         );
-        Set<Block> blocks = blockService.initOnNameCardCreate();
-        blocks.forEach(nameCard::addBlock);
+
         emailService.sendEmail(user.getEmail());
     }
 

@@ -10,14 +10,10 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 
+@Builder
 public record NameCardCreate(
         User user,
-        PageName pageName,
-        Avatar avatar,
-        Set<Block> blocks
+        PageName pageName
 ) {
-    @Builder
-    public NameCardCreate(User user, PageName pageName, Avatar avatar) {
-        this(user, pageName, avatar, new LinkedHashSet<>());
-    }
+
 }

@@ -20,6 +20,9 @@ public class NameCardController {
         return ResponseEntity.ok(NameCardResponse.from(nameCard));
     }
 
+    @PostMapping()
+    public
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
         nameCardService.deleteById(id);
