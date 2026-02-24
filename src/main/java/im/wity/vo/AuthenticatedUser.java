@@ -27,7 +27,7 @@ public record AuthenticatedUser(User user) implements Authentication {
 
     @Override
     public Object getPrincipal() {
-        return null;
+        return user;
     }
 
     @Override

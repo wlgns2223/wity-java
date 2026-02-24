@@ -44,7 +44,7 @@ public class NameCard {
     private Boolean isDeleted;
 
     @OneToMany(mappedBy = "nameCard",cascade = CascadeType.ALL,orphanRemoval = true)
-    private Set<Block> blocks = new LinkedHashSet<>();
+    private Set<Block> blocks;
 
     @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "avatar_id")
@@ -68,6 +68,10 @@ public class NameCard {
     }
 
     public void addBlock(Block block){
+        if(this.blocks == null){
+            this.blocks = new LinkedHashSet<>();
+        }
+
         if(this.blocks.isEmpty()){
             block.assignOrder(0);
         } else {

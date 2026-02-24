@@ -1,6 +1,7 @@
 package im.wity.service;
 
 import im.wity.dto.NameCardCreate;
+import im.wity.dto.NameCardCreateRequest;
 import im.wity.entity.Avatar;
 import im.wity.entity.Block;
 import im.wity.entity.NameCard;
@@ -30,14 +31,15 @@ public class NameCardService {
         }
 
         Set<Block> blocks = blockService.initOnNameCardCreate();
+        NameCard nameCard = NameCard.builder()
+                .user(nameCardCreate.user())
+                .avatar(Avatar.init())
+                .pageName(nameCardCreate.pageName())
+                .build();
 
-        return nameCardRepository.save(
-                NameCard.builder()
-                        .user(nameCardCreate.user())
-                        .avatar(Avatar.init())
-                        .pageName(nameCardCreate.pageName())
-                        .blocks(blocks)
-                        .build());
+        blocks.forEach(nameCard::addBlock);
+
+        return nameCardRepository.save(nameCard);
     }
 
     public NameCard findByPageName(PageName pageName){
