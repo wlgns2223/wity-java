@@ -83,4 +83,29 @@ public class Block {
         nameCard.getBlocks().add(this);
     }
 
+    public static Block ofText(String content){
+        return Block.builder()
+                .type(BlockType.TEXT)
+                .customAttrs(Map.of(BlockAttrKey.KEY, content))
+                .build();
+    }
+
+    public static Block ofLink(String content){
+        return Block.builder()
+                .type(BlockType.LINK)
+                .customAttrs(Map.of(BlockAttrKey.KEY, content))
+                .build();
+    }
+
+    public static Block from(BlockType type, Map<BlockAttrKey,Object> attrs){
+        type.validate(attrs);
+        return Block.builder()
+                .type(type)
+                .customAttrs(attrs)
+                .build();
+
+    }
+
+
+
 }

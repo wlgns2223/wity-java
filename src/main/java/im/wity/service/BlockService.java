@@ -17,21 +17,11 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class BlockService {
 
+    private final NameCardService nameCardService;
 
-    @Transactional
-    public Set<Block> initOnNameCardCreate(){
-        Set<Block> blocks = new LinkedHashSet<>();
-        blocks.add(Block.builder()
-                .type(BlockType.TEXT)
-                .customAttrs(Map.of(BlockAttrKey.KEY, "위티 생성을 축하드립니다."))
-                .build()
-        );
-        blocks.add(Block.builder()
-                .type(BlockType.LINK)
-                .customAttrs(Map.of(BlockAttrKey.KEY, "https://wity.im"))
-                .build()
-        );
-        return blocks;
+    Block create(BlockType blockType){
 
     }
+
+
 }

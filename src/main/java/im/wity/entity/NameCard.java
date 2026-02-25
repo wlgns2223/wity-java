@@ -84,4 +84,16 @@ public class NameCard {
         }
     }
 
+    public static NameCard create(User user, PageName pageName){
+        NameCard nameCard = NameCard.builder()
+                .user(user)
+                .avatar(Avatar.init())
+                .pageName(pageName)
+                .build();
+
+        nameCard.addBlock(Block.ofText("위티에 가입하신걸 축하드립니다."));
+        nameCard.addBlock(Block.ofLink("https://wity.im"));
+        return nameCard;
+    }
+
 }
