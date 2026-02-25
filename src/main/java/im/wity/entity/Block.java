@@ -97,12 +97,11 @@ public class Block {
                 .build();
     }
 
-    public static Block from(BlockType type, Map<BlockAttrKey,Object> attrs){
-        type.validate(attrs);
-        return Block.builder()
-                .type(type)
-                .customAttrs(attrs)
-                .build();
+    public static Block from(BlockType type){
+        return switch (type) {
+            case TEXT -> ofText("");
+            case LINK -> ofLink("");
+        };
 
     }
 

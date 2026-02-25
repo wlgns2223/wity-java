@@ -19,15 +19,6 @@ public enum BlockType {
     private final String type;
     private final Set<BlockAttrKey> requiredAttrs;
 
-    public void validate(Map<BlockAttrKey,Object> attrs){
-        requiredAttrs.forEach(key -> {
-            if(!attrs.containsKey(key)){
-                throw new IllegalArgumentException(
-                        this.type + " 블록에는 " + key + " 속성이 필요합니다.");
-            }
-        });
-    }
-
     public static BlockType from(String value){
         return Arrays.stream(values())
                 .filter(bt -> bt.type.equals(value))

@@ -19,8 +19,12 @@ public class BlockService {
 
     private final NameCardService nameCardService;
 
-    Block create(BlockType blockType){
+    @Transactional
+    public NameCard create(Long nameCardId, BlockType blockType){
+        NameCard nameCard = nameCardService.getById(nameCardId);
+        nameCard.addBlock(Block.from(blockType));
 
+        return nameCard;
     }
 
 

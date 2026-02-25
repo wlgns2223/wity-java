@@ -37,6 +37,10 @@ public class NameCardService {
         return nameCardRepository.findByPageName(pageName);
     }
 
+    public NameCard getById(Long id){
+        return nameCardRepository.findById(id).orElseThrow(() -> new IllegalArgumentException(id + "로 조회된 결과가 없습니다."));
+    }
+
     @Transactional
     public void deleteById(Long id){ nameCardRepository.deleteById(id);}
 
