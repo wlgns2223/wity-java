@@ -36,7 +36,6 @@ public class NameCardServiceTest {
     @DisplayName("페이지명이 중복되지 않으면 NameCard를 생성한다.")
     void createNameCard(){
         User user = UserFixture.createLocalUser();
-        Avatar avatar = Avatar.init();
         LinkedHashSet<Block> blocks = new LinkedHashSet<>();
 
         NameCardCreate nameCardCreate = NameCardCreate.builder()
@@ -67,8 +66,6 @@ public class NameCardServiceTest {
     @DisplayName("페이지명이 중복되면 NameCard 생성에 실패한다")
     void createNameCard_ThrowsException_WhenPageNameExists(){
         User user = UserFixture.createLocalUser();
-        Avatar avatar = Avatar.init();
-        LinkedHashSet<Block> blocks = new LinkedHashSet<>();
 
         NameCardCreate nameCardCreate = NameCardCreate.builder()
                 .user(user)

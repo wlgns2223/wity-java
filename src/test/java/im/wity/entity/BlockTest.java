@@ -1,7 +1,11 @@
 package im.wity.entity;
 
+import im.wity.dto.NameCardCreate;
+import im.wity.dto.UserCreate;
 import im.wity.fixture.BlockFixture;
 import im.wity.fixture.NameCardFixture;
+import im.wity.fixture.UserFixture;
+import im.wity.vo.PageName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +17,8 @@ public class BlockTest {
     @Test
     @DisplayName("setNameCard - nameCard를 초기화하면 nameCard에도 해당 block이 입력된다")
     void setNameCard_nameCardInitAndNameCardBlocksContainThis(){
-        NameCard nameCard = NameCardFixture.create();
+
+        NameCard nameCard = NameCardFixture.create(UserFixture.createLocalUser());
         Block block = BlockFixture.createTextBlock();
         block.setNameCard(nameCard);
 

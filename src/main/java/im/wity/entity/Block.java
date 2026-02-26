@@ -20,7 +20,7 @@ import java.util.Map;
 @Table(name = "block")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(exclude = "nameCard")
+@EqualsAndHashCode(exclude = {"id","nameCard","blockOrder","createdAt","updatedAt"})
 public class Block {
 
     @Id
