@@ -9,12 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "verification")
-@EntityListeners(AuditingEntityListener.class)
-public class Verification {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Verification extends BaseEntity {
 
     @Column(nullable = false)
     private String target;
@@ -31,9 +26,6 @@ public class Verification {
     @Column(nullable = false)
     private String code;
 
-    @CreatedDate
-    @Column(updatable = false,nullable = false)
-    private LocalDateTime createdAt;
 
     @LastModifiedDate
     @Column
@@ -45,7 +37,7 @@ public class Verification {
 
     @PrePersist
     private void setExpiredAt(){
-        this.expiredAt = this.createdAt.plusMinutes(10);
+        this.expiredAt = getCreatedAt().plusMinutes(10);
     }
 
     public boolean isExpired(){

@@ -21,15 +21,10 @@ import java.time.LocalDateTime;
                 )
         }
 )
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class TermsOfCondition {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TermsOfCondition extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id",nullable = false)
@@ -41,13 +36,5 @@ public class TermsOfCondition {
 
     @Column
     private boolean agreed;
-
-    @CreatedDate
-    @Column(updatable = false,nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
 
 }

@@ -3,10 +3,7 @@ package im.wity.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Null;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -16,17 +13,12 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @Table(name = "avatar")
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Avatar {
+public class Avatar extends BaseEntity{
 
     public static final class Validation {
         public static final int MAX_LEN = 255;
     }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
     @Column
     @Max(Validation.MAX_LEN)
@@ -42,13 +34,6 @@ public class Avatar {
     @Column(nullable = false)
     private Boolean isFolded;
 
-    @CreatedDate
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
 
     @Builder
     private Avatar(String name, String bio, String image){

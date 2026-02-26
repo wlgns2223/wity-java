@@ -19,13 +19,8 @@ import java.util.Map;
 @Entity
 @Table(name = "block")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@EntityListeners(AuditingEntityListener.class)
-@EqualsAndHashCode(exclude = {"id","nameCard","blockOrder","createdAt","updatedAt"})
-public class Block {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@EqualsAndHashCode(exclude = {"nameCard","blockOrder"}, callSuper = false)
+public class Block extends BaseEntity{
 
     @Column(nullable = false)
     private Boolean folded;
@@ -51,14 +46,6 @@ public class Block {
     @JoinColumn(name = "name_card_id", nullable = false)
     @ToString.Exclude
     private NameCard nameCard;
-
-    @CreatedDate
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(nullable = false)
-    private LocalDateTime updatedAt;
 
     @Builder
     public Block(BlockType type, Map<BlockAttrKey,Object> customAttrs){

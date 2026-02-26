@@ -32,7 +32,6 @@ public class BlockServiceTest {
     void createBlock(){
         NameCard nameCard = NameCardFixture.create(UserFixture.createLocalUser());
         given(nameCardService.getById(any(Long.class))).willReturn(nameCard);
-        nameCard.addBlock(Block.from(BlockType.TEXT));
 
         NameCard result = blockService.create(any(Long.class), BlockType.TEXT);
 

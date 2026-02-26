@@ -14,15 +14,11 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table(name = "user")
 @NoArgsConstructor(access =AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder(access = AccessLevel.PRIVATE)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class User extends BaseEntity {
 
     @Column(nullable = false,unique = true)
     private String email;
@@ -46,14 +42,6 @@ public class User {
 
     @Column
     private String userName;
-
-    @CreatedDate
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(updatable = false, nullable = false)
-    private LocalDateTime updatedAt;
 
     public static User createLocalUser(
             String email,
