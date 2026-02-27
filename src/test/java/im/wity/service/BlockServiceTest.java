@@ -5,15 +5,16 @@ import im.wity.entity.Block;
 import im.wity.entity.NameCard;
 import im.wity.fixture.NameCardFixture;
 import im.wity.fixture.UserFixture;
-import im.wity.vo.PageName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -37,7 +38,14 @@ public class BlockServiceTest {
 
         assertThat(result).isNotNull();
         assertThat(result.getBlocks()).contains(Block.from(BlockType.TEXT));
+    }
 
+    @Test
+    @DisplayName("nameCard를 못찾으면 block 생성은 실패한다.")
+    void failCreatingBlockWhenUnableToFindNameCardById(){
+        given(nameCardService.getById(any(Long.class))).willThrow(new IllegalArgumentException());
 
+        assertThatThrownBy(() -> blockService.create(0L, BlockType.TEXT))
+                .isInstanceOf(IllegalArgumentException.class);
     }
 }
