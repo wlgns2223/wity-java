@@ -4,9 +4,11 @@ import im.wity.constant.BlockAttrKey;
 import im.wity.dto.block.BlockCreateRequest;
 import im.wity.dto.block.BlockResponse;
 import im.wity.entity.Block;
+import im.wity.entity.User;
 import im.wity.service.BlockService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -24,9 +26,13 @@ public class BlockController {
         return ResponseEntity.ok(BlockResponse.from(block));
     }
 
-    @PostMapping("/{blockId}")
-    ResponseEntity<BlockResponse> updateCustomAttrs(@PathVariable Long blockId, @RequestBody Map<BlockAttrKey,Object> dto, @PathVariable String nameCardId){
-        Block block = blockService.updateCustomAttrs(blockId, dto);
+    @PostMapping("/{blockId}/attr")
+    ResponseEntity<BlockResponse> updateCustomAttrs(
+            @PathVariable Long blockId,
+            @RequestBody Map<BlockAttrKey,Object> dto,
+            @PathVariable Long nameCardId,
+            @AuthenticationPrincipal User user){
+        Block block = blockService.updateCustomAttrs(nameCardId,blockId, dto,user);
         return ResponseEntity.ok(BlockResponse.from(block));
     }
 }

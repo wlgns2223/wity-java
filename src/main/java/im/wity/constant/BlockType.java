@@ -6,28 +6,40 @@ import im.wity.entity.Block;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Getter
 @RequiredArgsConstructor
 public enum BlockType {
 
-    TEXT("text",Map.of(BlockAttrKey.CONTENT,""),attrs ->
-            Block.ofText((String)attrs.get(BlockAttrKey.CONTENT))),
-    LINK("link",Map.of(BlockAttrKey.CONTENT,""), attrs ->
-            Block.ofLink((String) attrs.get(BlockAttrKey.CONTENT))),
+
+    TEXT("text",
+            Map.of(BlockAttrKey.CONTENT,""),
+            attrs -> Block.ofText((String)attrs.get(BlockAttrKey.CONTENT)),
+            ValueValidator::validateText
+
+            ),
+
+    LINK("link",
+            Map.of(BlockAttrKey.CONTENT,""),
+            attrs -> Block.ofLink((String) attrs.get(BlockAttrKey.CONTENT)),
+            ValueValidator::validateLink
+            ),
     IMAGE("image",
             Map.of(BlockAttrKey.URL,"",
                     BlockAttrKey.SIZE,Size.from()),
-            attrs -> Block.ofImage((String) attrs.get(BlockAttrKey.URL), (Size) attrs.get(BlockAttrKey.SIZE)));
+            attrs -> Block.ofImage((String) attrs.get(BlockAttrKey.URL), (Size) attrs.get(BlockAttrKey.SIZE)),
+            ValueValidator::validateImage
+            );
 
     @JsonValue
     private final String type;
     private final Map<BlockAttrKey,Object> requiredAttrs;
-    private final Function<Map<BlockAttrKey,Object>, Block> factory;
+    private final Function<Map<BlockAttrKey, Object>, Block> factory;
+    private final Consumer<Map<BlockAttrKey,Object>> valueValidator;
 
     public Block create() {
         return factory.apply(requiredAttrs);
@@ -40,6 +52,8 @@ public enum BlockType {
             }
         });
 
+        valueValidator.accept(attrs);
+
     }
 
     public static BlockType from(String value){
@@ -47,5 +61,37 @@ public enum BlockType {
                 .filter(bt -> bt.type.equals(value))
                 .findFirst()
                 .orElseThrow(() -> new IllegalArgumentException("지원하지 않는 블록타입니다."));
+    }
+
+    private static class ValueValidator {
+        public static void validateText(Map<BlockAttrKey,Object> attrs){
+            Object value = attrs.get(BlockAttrKey.CONTENT);
+            if( value instanceof List){
+                throw new IllegalArgumentException();
+            }
+
+            if(value instanceof Map){
+                throw new IllegalArgumentException();
+            }
+        }
+
+        public static void validateLink(Map<BlockAttrKey,Object> attrs){
+            Object value = attrs.get(BlockAttrKey.CONTENT);
+            if( ! (value instanceof String)){
+                throw new IllegalArgumentException();
+            }
+        }
+
+        public static void validateImage(Map<BlockAttrKey,Object> attrs){
+            Object url = attrs.get(BlockAttrKey.URL);
+            if(!(url instanceof String)){
+                throw new IllegalArgumentException();
+            }
+
+            Object size = attrs.get(BlockAttrKey.SIZE);
+            if(!(size instanceof Size)){
+                throw new IllegalArgumentException();
+            }
+        }
     }
 }

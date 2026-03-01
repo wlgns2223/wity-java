@@ -4,6 +4,7 @@ import im.wity.constant.BlockAttrKey;
 import im.wity.constant.BlockType;
 import im.wity.entity.Block;
 import im.wity.entity.NameCard;
+import im.wity.entity.User;
 import im.wity.repository.BlockRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -30,9 +31,10 @@ public class BlockService {
     }
 
     @Transactional
-    public Block updateCustomAttrs(Long blockId, Map<BlockAttrKey,Object> newCustomAttrs){
-        Block block = blockRepository.findById(blockId).orElseThrow(() ->
+    public Block updateCustomAttrs(Long nameCardId, Long blockId, Map<BlockAttrKey,Object> newCustomAttrs, User user){
+        Block block = blockRepository.findByIdAndNameCard_IdAndNameCard_User(blockId,nameCardId,user).orElseThrow(() ->
                 new RuntimeException(blockId + "가 없습니다."));
+
 
         block.updateCustomAttrs(newCustomAttrs);
         return block;
