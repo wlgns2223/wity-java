@@ -1,11 +1,8 @@
 package im.wity.entity;
 
-import im.wity.dto.NameCardCreate;
-import im.wity.dto.UserCreate;
 import im.wity.fixture.BlockFixture;
 import im.wity.fixture.NameCardFixture;
 import im.wity.fixture.UserFixture;
-import im.wity.vo.PageName;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

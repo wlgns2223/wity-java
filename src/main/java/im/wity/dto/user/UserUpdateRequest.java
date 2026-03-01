@@ -1,4 +1,4 @@
-package im.wity.dto;
+package im.wity.dto.user;
 
 import im.wity.components.UserNameValidator;
 import im.wity.vo.PageName;

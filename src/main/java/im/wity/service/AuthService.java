@@ -2,17 +2,15 @@ package im.wity.service;
 
 import im.wity.components.JwtProvider;
 import im.wity.components.PasswordService;
-import im.wity.dto.LocalSignInRequest;
-import im.wity.dto.LocalSignUpRequest;
-import im.wity.dto.LocalSignInResponse;
-import im.wity.dto.NameCardCreate;
+import im.wity.dto.auth.LocalSignInRequest;
+import im.wity.dto.auth.LocalSignUpRequest;
+import im.wity.dto.auth.LocalSignInResponse;
+import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.User;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Slf4j
 @Service

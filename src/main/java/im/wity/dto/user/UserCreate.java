@@ -1,4 +1,4 @@
-package im.wity.dto;
+package im.wity.dto.user;
 
 import im.wity.vo.PageName;
 import jakarta.validation.constraints.Email;

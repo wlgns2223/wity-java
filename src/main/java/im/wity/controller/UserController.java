@@ -1,7 +1,7 @@
 package im.wity.controller;
 
-import im.wity.dto.UserResponse;
-import im.wity.dto.UserUpdateRequest;
+import im.wity.dto.user.UserResponse;
+import im.wity.dto.user.UserUpdateRequest;
 import im.wity.entity.User;
 import im.wity.service.UserService;
 import lombok.RequiredArgsConstructor;

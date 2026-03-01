@@ -1,12 +1,10 @@
 package im.wity.controller;
 
-import im.wity.dto.NameCardCreate;
-import im.wity.dto.NameCardCreateRequest;
-import im.wity.dto.NameCardResponse;
+import im.wity.dto.nameCard.NameCardCreateRequest;
+import im.wity.dto.nameCard.NameCardResponse;
 import im.wity.entity.NameCard;
 import im.wity.entity.User;
 import im.wity.service.NameCardService;
-import im.wity.vo.AuthenticatedUser;
 import im.wity.vo.PageName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

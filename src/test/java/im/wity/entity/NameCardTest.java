@@ -42,11 +42,11 @@ public class NameCardTest {
         NameCard nameCard = NameCard.builder().blocks(new LinkedHashSet<>()).build();
         Block firstBlock = Block.builder()
                 .type(BlockType.TEXT)
-                .customAttrs(Map.of(BlockAttrKey.KEY,"first"))
+                .customAttrs(Map.of(BlockAttrKey.CONTENT,"first"))
                 .build();
         Block secondBlock = Block.builder()
                 .type(BlockType.TEXT)
-                .customAttrs(Map.of(BlockAttrKey.KEY,"second"))
+                .customAttrs(Map.of(BlockAttrKey.CONTENT,"second"))
                 .build();
         nameCard.addBlock(firstBlock);
         nameCard.addBlock(secondBlock);

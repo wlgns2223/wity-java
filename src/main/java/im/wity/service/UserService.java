@@ -2,9 +2,8 @@ package im.wity.service;
 
 import im.wity.components.PasswordService;
 import im.wity.components.UserNameValidator;
-import im.wity.dto.UserCreate;
-import im.wity.dto.UserUpdateRequest;
-import im.wity.entity.NameCard;
+import im.wity.dto.user.UserCreate;
+import im.wity.dto.user.UserUpdateRequest;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import im.wity.vo.PageName;

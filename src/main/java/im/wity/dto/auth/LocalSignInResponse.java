@@ -1,4 +1,4 @@
-package im.wity.dto;
+package im.wity.dto.auth;
 
 
 import im.wity.entity.User;

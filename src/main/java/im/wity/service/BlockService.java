@@ -18,13 +18,24 @@ import java.util.Set;
 public class BlockService {
 
     private final NameCardService nameCardService;
+    private final BlockRepository blockRepository;
 
     @Transactional
-    public NameCard create(Long nameCardId, BlockType blockType){
+    public Block create(Long nameCardId, BlockType blockType){
         NameCard nameCard = nameCardService.getById(nameCardId);
-        nameCard.addBlock(Block.from(blockType));
+        Block newBlock = blockType.create();
+        nameCard.addBlock(newBlock);
 
-        return nameCard;
+        return newBlock;
+    }
+
+    @Transactional
+    public Block updateCustomAttrs(Long blockId, Map<BlockAttrKey,Object> newCustomAttrs){
+        Block block = blockRepository.findById(blockId).orElseThrow(() ->
+                new RuntimeException(blockId + "가 없습니다."));
+
+        block.updateCustomAttrs(newCustomAttrs);
+        return block;
     }
 
 

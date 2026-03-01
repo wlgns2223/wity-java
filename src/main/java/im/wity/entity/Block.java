@@ -2,17 +2,12 @@ package im.wity.entity;
 
 import im.wity.constant.BlockAttrKey;
 import im.wity.constant.BlockType;
+import im.wity.dto.block.Size;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
-import java.time.LocalDateTime;
-import java.util.HashMap;
 import java.util.Map;
 
 @Getter
@@ -73,25 +68,28 @@ public class Block extends BaseEntity{
     public static Block ofText(String content){
         return Block.builder()
                 .type(BlockType.TEXT)
-                .customAttrs(Map.of(BlockAttrKey.KEY, content))
+                .customAttrs(Map.of(BlockAttrKey.CONTENT, content))
                 .build();
     }
 
     public static Block ofLink(String content){
         return Block.builder()
                 .type(BlockType.LINK)
-                .customAttrs(Map.of(BlockAttrKey.KEY, content))
+                .customAttrs(Map.of(BlockAttrKey.CONTENT, content))
                 .build();
     }
 
-    public static Block from(BlockType type){
-        return switch (type) {
-            case TEXT -> ofText("");
-            case LINK -> ofLink("");
-        };
-
+    public static Block ofImage(String url, Size size){
+        return Block.builder()
+                .type(BlockType.IMAGE)
+                .customAttrs(Map.of(BlockAttrKey.URL, url, BlockAttrKey.SIZE, size))
+                .build();
     }
 
+    public void updateCustomAttrs(Map<BlockAttrKey,Object> customAttrs){
+        this.type.validate(customAttrs);
+        this.customAttrs = customAttrs;
+    }
 
 
 }

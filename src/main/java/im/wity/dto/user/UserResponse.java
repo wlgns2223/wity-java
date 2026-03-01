@@ -1,4 +1,4 @@
-package im.wity.dto;
+package im.wity.dto.user;
 
 import im.wity.constant.AuthProvider;
 import im.wity.entity.User;

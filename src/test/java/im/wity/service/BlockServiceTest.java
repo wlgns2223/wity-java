@@ -1,5 +1,6 @@
 package im.wity.service;
 
+import im.wity.constant.BlockAttrKey;
 import im.wity.constant.BlockType;
 import im.wity.entity.Block;
 import im.wity.entity.NameCard;
@@ -12,6 +13,8 @@ import org.junit.jupiter.api.Assertions;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -37,7 +40,7 @@ public class BlockServiceTest {
         NameCard result = blockService.create(any(Long.class), BlockType.TEXT);
 
         assertThat(result).isNotNull();
-        assertThat(result.getBlocks()).contains(Block.from(BlockType.TEXT));
+        assertThat(result.getBlocks()).contains(BlockType.TEXT.create(Map.of(BlockAttrKey.CONTENT,"")));
     }
 
     @Test

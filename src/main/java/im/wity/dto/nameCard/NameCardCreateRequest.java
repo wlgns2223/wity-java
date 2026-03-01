@@ -1,4 +1,4 @@
-package im.wity.dto;
+package im.wity.dto.nameCard;
 
 import im.wity.entity.User;
 import im.wity.vo.PageName;

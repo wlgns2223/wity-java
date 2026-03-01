@@ -7,7 +7,9 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum BlockAttrKey {
-    KEY("content");
+    CONTENT("content"),
+    URL("url"),
+    SIZE("size");
 
     @JsonValue
     private final String key;

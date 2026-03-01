@@ -1,5 +1,7 @@
-package im.wity.dto;
+package im.wity.dto.nameCard;
 
+import im.wity.dto.block.BlockResponse;
+import im.wity.dto.user.UserResponse;
 import im.wity.entity.Avatar;
 import im.wity.entity.NameCard;
 

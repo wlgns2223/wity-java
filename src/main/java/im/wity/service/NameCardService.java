@@ -1,11 +1,6 @@
 package im.wity.service;
 
-import im.wity.constant.BlockAttrKey;
-import im.wity.constant.BlockType;
-import im.wity.dto.NameCardCreate;
-import im.wity.dto.NameCardCreateRequest;
-import im.wity.entity.Avatar;
-import im.wity.entity.Block;
+import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.NameCard;
 import im.wity.entity.User;
 import im.wity.repository.NameCardRepository;
@@ -13,8 +8,6 @@ import im.wity.vo.PageName;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 @Service
 @RequiredArgsConstructor

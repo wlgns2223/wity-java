@@ -1,7 +1,6 @@
 package im.wity.service;
 
-import im.wity.dto.NameCardCreate;
-import im.wity.entity.Avatar;
+import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.Block;
 import im.wity.entity.NameCard;
 import im.wity.entity.User;

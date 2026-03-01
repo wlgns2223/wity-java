@@ -1,8 +1,8 @@
 package im.wity.controller;
 
-import im.wity.dto.LocalSignInRequest;
-import im.wity.dto.LocalSignInResponse;
-import im.wity.dto.LocalSignUpRequest;
+import im.wity.dto.auth.LocalSignInRequest;
+import im.wity.dto.auth.LocalSignInResponse;
+import im.wity.dto.auth.LocalSignUpRequest;
 import im.wity.entity.User;
 import im.wity.service.AuthService;
 import jakarta.validation.Valid;

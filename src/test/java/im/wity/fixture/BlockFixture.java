@@ -10,7 +10,7 @@ public class BlockFixture {
     public static Block createTextBlock(){
         return Block.builder()
                 .type(BlockType.TEXT)
-                .customAttrs(Map.of(BlockAttrKey.KEY,"fixture"))
+                .customAttrs(Map.of(BlockAttrKey.CONTENT,"fixture"))
                 .build();
     }
 }
