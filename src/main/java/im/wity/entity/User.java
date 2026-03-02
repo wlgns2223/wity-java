@@ -1,6 +1,7 @@
 package im.wity.entity;
 
 import im.wity.constant.AuthProvider;
+import im.wity.dto.user.UserUpdate;
 import im.wity.vo.PageName;
 import im.wity.vo.PageNameConverter;
 import im.wity.vo.Password;
@@ -62,9 +63,9 @@ public class User extends BaseEntity {
                 .build();
     }
 
-    public void update(PageName defaultPageName,String userName){
-        this.defaultPageName = defaultPageName;
-        this.userName = userName;
+    public void update(UserUpdate userUpdate){
+        this.defaultPageName = userUpdate.pageName();
+        this.userName = userUpdate.userName();
 
     }
 }

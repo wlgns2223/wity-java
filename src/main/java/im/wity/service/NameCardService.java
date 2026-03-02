@@ -4,6 +4,7 @@ import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.NameCard;
 import im.wity.entity.User;
 import im.wity.repository.NameCardRepository;
+import im.wity.validator.NameCardPolicyValidator;
 import im.wity.vo.PageName;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -14,15 +15,12 @@ import org.springframework.stereotype.Service;
 public class NameCardService {
 
     private final NameCardRepository nameCardRepository;
+    private final NameCardPolicyValidator nameCardPolicyValidator;
 
     @Transactional
     public NameCard create(NameCardCreate nameCardCreate){
-        if(nameCardRepository.existsByPageName(nameCardCreate.pageName())){
-            throw new IllegalArgumentException("다른 페이지명을 선택해주세요");
-        }
-
+        nameCardPolicyValidator.validateCreate(nameCardCreate.pageName());
         NameCard nameCard = NameCard.create(nameCardCreate.user(), nameCardCreate.pageName());
-
         return nameCardRepository.save(nameCard);
     }
 

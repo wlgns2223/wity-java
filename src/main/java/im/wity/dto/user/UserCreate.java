@@ -1,6 +1,8 @@
 package im.wity.dto.user;
 
+import im.wity.entity.User;
 import im.wity.vo.PageName;
+import im.wity.vo.Password;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -31,4 +33,13 @@ public record UserCreate(
         )
         String userName
 ) {
+
+        public User toCreateLocalUser(Password encodedPassword){
+                return User.createLocalUser(
+                        email,
+                        encodedPassword,
+                        defaultPageName,
+                        userName);
+
+        }
 }

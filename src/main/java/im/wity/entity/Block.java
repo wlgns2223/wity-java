@@ -91,5 +91,17 @@ public class Block extends BaseEntity{
         this.customAttrs = customAttrs;
     }
 
+    public void updateFold(boolean folded){
+        this.folded = folded;
+    }
+
+    public void updateActive(boolean active){
+        this.active = active;
+    }
+
+    public void increaseClickCount(){
+        this.clickCount += 1;
+    }
+
 
 }

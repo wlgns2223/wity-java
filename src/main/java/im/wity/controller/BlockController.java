@@ -35,4 +35,10 @@ public class BlockController {
         Block block = blockService.updateCustomAttrs(nameCardId,blockId, dto,user);
         return ResponseEntity.ok(BlockResponse.from(block));
     }
+
+    @PostMapping("/{blockId}/count")
+    ResponseEntity<Void> increaseCount(@PathVariable Long nameCardId, @PathVariable Long blockId){
+        blockService.increaseCount(nameCardId,blockId);
+        return ResponseEntity.noContent().build();
+    }
 }
