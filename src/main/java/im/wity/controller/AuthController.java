@@ -1,14 +1,15 @@
 package im.wity.controller;
 
+import im.wity.core.AuthResult;
 import im.wity.dto.auth.LocalSignInRequest;
-import im.wity.dto.auth.LocalSignInResponse;
 import im.wity.dto.auth.LocalSignUpRequest;
+import im.wity.dto.auth.SignInResponse;
+import im.wity.dto.user.UserResponse;
 import im.wity.entity.User;
 import im.wity.service.AuthService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
@@ -20,12 +21,6 @@ import java.time.Duration;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 public class AuthController {
-
-    @Value("${jwt.access-expiration-ms}")
-    private long accessExpirationMS;
-
-    @Value("${jwt.refresh-expiration-ms}")
-    private long refreshExpirationMS;
 
 
     private final AuthService authService;
@@ -42,31 +37,25 @@ public class AuthController {
     }
 
     @PostMapping("/local-sign-in")
-    ResponseEntity<User> localSignIn(@Valid @RequestBody LocalSignInRequest signInRequest){
+    ResponseEntity<UserResponse> localSignIn(@Valid @RequestBody LocalSignInRequest signInRequest){
 
-        LocalSignInResponse signInResponse = authService.signIn(signInRequest);
+        SignInResponse signInResponse = authService.signIn(signInRequest);
 
-        ResponseCookie accessCookie = ResponseCookie.from("access_token", signInResponse.accessToken())
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(Duration.ofMillis(accessExpirationMS))
-                .sameSite("lax")
-                .build();
+        ResponseEntity.BodyBuilder builder = ResponseEntity.ok();
 
-        ResponseCookie refreshCookie = ResponseCookie.from("refresh_token", signInResponse.refreshToken())
-                .httpOnly(true)
-                .secure(false)
-                .path("/")
-                .maxAge(Duration.ofMillis(refreshExpirationMS))
-                .sameSite("lax")
-                .build();
+        signInResponse.authResult().cookies().forEach(cookie -> {
+            builder.header(HttpHeaders.SET_COOKIE,
+                    ResponseCookie.from(cookie.name(), cookie.value())
+                            .httpOnly(true)
+                            .secure(false)
+                            .path("/")
+                            .maxAge(cookie.expirationSeconds())
+                            .sameSite("lax")
+                            .toString()
+            );
+        });
 
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE,accessCookie.toString())
-                .header(HttpHeaders.SET_COOKIE,refreshCookie.toString())
-                .body(signInResponse.user());
+        return builder.body(signInResponse.userResponse());
 
     }
 

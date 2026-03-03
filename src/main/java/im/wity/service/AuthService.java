@@ -1,12 +1,11 @@
 package im.wity.service;
 
-import im.wity.components.AuthGenerator;
-import im.wity.components.JwtProvider;
-import im.wity.components.PasswordService;
-import im.wity.dto.auth.AuthToken;
+import im.wity.core.AuthManager;
+import im.wity.core.AuthResult;
+import im.wity.dto.auth.AuthCookie;
 import im.wity.dto.auth.LocalSignInRequest;
 import im.wity.dto.auth.LocalSignUpRequest;
-import im.wity.dto.auth.LocalSignInResponse;
+import im.wity.dto.auth.SignInResponse;
 import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.User;
 import im.wity.validator.SignInValidator;
@@ -25,10 +24,8 @@ public class AuthService {
     private final EmailService emailService;
     private final NameCardService nameCardService;
     private final SignInValidator signInValidator;
-    private final AuthGenerator authGenerator;
+    private final AuthManager authManager;
 
-    private final PasswordService passwordService;
-    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signUp(LocalSignUpRequest localSignUpRequest)  {
@@ -49,9 +46,9 @@ public class AuthService {
 
     }
 
-    public LocalSignInResponse signIn(LocalSignInRequest signInRequest){
+    public SignInResponse signIn(LocalSignInRequest signInRequest){
         User user = signInValidator.validate(signInRequest);
-        AuthToken authToken = authGenerator.generate(user.getEmail());
-        return LocalSignInResponse.from(authToken, user);
+        AuthResult authResult = authManager.process(user);
+        return SignInResponse.of(authResult, user);
     }
 }

@@ -1,5 +1,6 @@
 package im.wity.components;
 
+import im.wity.core.AuthToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
@@ -28,12 +29,17 @@ public class JwtProvider {
         this.refreshExpirationMS = refreshExpirationMS;
     }
 
-    public String createAccessToken(String email){
-        return buildToken(email, accessExpirationMS, "access");
+    public AuthToken createAccessToken(String email){
+        String token = buildToken(email, accessExpirationMS, "access");
+
+        return AuthToken.builder().name("access").token(token).expirationMS(accessExpirationMS).build();
+
     }
 
-    public String createRefreshToken(String email){
-        return buildToken(email, refreshExpirationMS, "refresh");
+    public AuthToken createRefreshToken(String email){
+        String token = buildToken(email, refreshExpirationMS, "refresh");
+
+        return AuthToken.builder().name("refresh").token(token).expirationMS(refreshExpirationMS).build();
     }
 
     private String buildToken(String email, long expirationMS, String tokenType){
@@ -53,10 +59,6 @@ public class JwtProvider {
                 .build()
                 .parseSignedClaims(token)
                 .getPayload();
-    }
-
-    public long getAccessExpirationSeconds(){
-        return accessExpirationMS / 1000;
     }
 
 }
