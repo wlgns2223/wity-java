@@ -8,10 +8,9 @@ import im.wity.dto.user.UserUpdateRequest;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import im.wity.validator.UserPolicyValidator;
-import im.wity.vo.PageName;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 

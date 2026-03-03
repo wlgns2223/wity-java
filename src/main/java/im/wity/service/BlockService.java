@@ -7,9 +7,9 @@ import im.wity.entity.NameCard;
 import im.wity.entity.User;
 import im.wity.manager.BlockManager;
 import im.wity.repository.BlockRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.LinkedHashSet;
 import java.util.Map;

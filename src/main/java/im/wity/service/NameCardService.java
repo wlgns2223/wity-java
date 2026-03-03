@@ -6,9 +6,9 @@ import im.wity.entity.User;
 import im.wity.repository.NameCardRepository;
 import im.wity.validator.NameCardPolicyValidator;
 import im.wity.vo.PageName;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor

@@ -2,11 +2,9 @@ package im.wity.validator;
 
 import im.wity.components.UserNameValidator;
 import im.wity.dto.user.UserUpdate;
-import im.wity.dto.user.UserUpdateRequest;
 import im.wity.entity.User;
 import im.wity.repository.UserRepository;
 import im.wity.vo.PageName;
-import im.wity.vo.UserName;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
