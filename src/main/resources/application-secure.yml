@@ -2,3 +2,8 @@ jwt:
   secret: "aGVsbG93b3JsZHRoaXNpc3dpdHl0ZXN0cHJvamVjdG5la2FyYWt1YmU="
   access-expiration-ms: 3600000
   refresh-expiration-ms: 604800000
+
+  oauth:
+    client-id: "d0c6828bef6033402b1a1e5b916459b0"
+    redirect-uri: "http://localhost:8080/api/auth/kakao/callback"
+    token-url: "https://kauth.kakao.com/oauth/token"

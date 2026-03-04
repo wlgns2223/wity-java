@@ -32,14 +32,14 @@ public class JwtProvider {
     public AuthToken createAccessToken(String email){
         String token = buildToken(email, accessExpirationMS, "access");
 
-        return AuthToken.builder().name("access").token(token).expirationMS(accessExpirationMS).build();
+        return AuthToken.from(token, accessExpirationMS);
 
     }
 
     public AuthToken createRefreshToken(String email){
         String token = buildToken(email, refreshExpirationMS, "refresh");
 
-        return AuthToken.builder().name("refresh").token(token).expirationMS(refreshExpirationMS).build();
+        return AuthToken.from(token,refreshExpirationMS);
     }
 
     private String buildToken(String email, long expirationMS, String tokenType){

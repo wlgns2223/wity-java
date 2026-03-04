@@ -45,7 +45,7 @@ public class AuthController {
 
         signInResponse.authResult().cookies().forEach(cookie -> {
             builder.header(HttpHeaders.SET_COOKIE,
-                    ResponseCookie.from(cookie.name(), cookie.value())
+                    ResponseCookie.from(cookie.name().getValue(), cookie.value())
                             .httpOnly(true)
                             .secure(false)
                             .path("/")
@@ -56,6 +56,11 @@ public class AuthController {
         });
 
         return builder.body(signInResponse.userResponse());
+    }
+
+    @GetMapping("/kakao/callback")
+    void kakaoCallback(@RequestParam String code){
+        System.out.println("code= "+code);
 
     }
 

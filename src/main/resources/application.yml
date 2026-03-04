@@ -7,7 +7,6 @@ spring:
       - "secure"
     active:
       - "local"
-
   jpa:
     hibernate:
       ddl-auto: validate
