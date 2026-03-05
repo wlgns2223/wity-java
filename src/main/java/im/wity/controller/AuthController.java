@@ -3,6 +3,7 @@ package im.wity.controller;
 import im.wity.core.AuthResult;
 import im.wity.dto.auth.LocalSignInRequest;
 import im.wity.dto.auth.LocalSignUpRequest;
+import im.wity.dto.auth.OauthSignInRequest;
 import im.wity.dto.auth.SignInResponse;
 import im.wity.dto.user.UserResponse;
 import im.wity.entity.User;
@@ -60,7 +61,7 @@ public class AuthController {
 
     @GetMapping("/kakao/callback")
     void kakaoCallback(@RequestParam String code){
-        System.out.println("code= "+code);
+        SignInResponse signInResponse = authService.oauthSignIn(OauthSignInRequest.from(code));
 
     }
 

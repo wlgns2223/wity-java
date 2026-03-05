@@ -1,11 +1,9 @@
 package im.wity.service;
 
+import im.wity.components.OAuthManager;
 import im.wity.core.AuthManager;
 import im.wity.core.AuthResult;
-import im.wity.dto.auth.AuthCookie;
-import im.wity.dto.auth.LocalSignInRequest;
-import im.wity.dto.auth.LocalSignUpRequest;
-import im.wity.dto.auth.SignInResponse;
+import im.wity.dto.auth.*;
 import im.wity.dto.nameCard.NameCardCreate;
 import im.wity.entity.User;
 import im.wity.validator.SignInValidator;
@@ -25,6 +23,7 @@ public class AuthService {
     private final NameCardService nameCardService;
     private final SignInValidator signInValidator;
     private final AuthManager authManager;
+    private final OAuthManager oAuthManager;
 
 
     @Transactional
@@ -50,5 +49,11 @@ public class AuthService {
         User user = signInValidator.validate(signInRequest);
         AuthResult authResult = authManager.process(user);
         return SignInResponse.of(authResult, user);
+    }
+
+    public SignInResponse oauthSignIn(OauthSignInRequest signInRequest){
+        User user = oAuthManager.processOauth(signInRequest.code());
+
+        return null;
     }
 }

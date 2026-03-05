@@ -3,7 +3,9 @@ jwt:
   access-expiration-ms: 3600000
   refresh-expiration-ms: 604800000
 
-  oauth:
+oauth:
+  kakao:
     client-id: "d0c6828bef6033402b1a1e5b916459b0"
     redirect-uri: "http://localhost:8080/api/auth/kakao/callback"
     token-url: "https://kauth.kakao.com/oauth/token"
+    base-url: "https://kauth.kakao.com/oauth"
