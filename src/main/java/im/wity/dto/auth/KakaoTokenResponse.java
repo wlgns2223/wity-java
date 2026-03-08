@@ -2,8 +2,10 @@ package im.wity.dto.auth;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
+import lombok.ToString;
 
 @Getter
+@ToString
 public class KakaoTokenResponse{
     @JsonProperty("token_type")
     private String tokenType;

@@ -60,8 +60,8 @@ public class AuthController {
     }
 
     @GetMapping("/kakao/callback")
-    void kakaoCallback(@RequestParam String code){
-        SignInResponse signInResponse = authService.oauthSignIn(OauthSignInRequest.from(code));
+    void kakaoCallback(@RequestParam String code,@RequestParam String defaultPageName){
+        SignInResponse signInResponse = authService.oauthSignIn(OauthSignInRequest.from(code,defaultPageName));
 
     }
 

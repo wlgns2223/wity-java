@@ -1,8 +1,10 @@
 package im.wity.dto.auth;
 
-public record OauthSignInRequest(String code) {
-    public static OauthSignInRequest from(String code){
-        return new OauthSignInRequest(code);
+import im.wity.vo.PageName;
+
+public record OauthSignInRequest(String code, PageName defaultPageName) {
+    public static OauthSignInRequest from(String code,String defaultPageName){
+        return new OauthSignInRequest(code,PageName.of(defaultPageName));
     }
 }
 

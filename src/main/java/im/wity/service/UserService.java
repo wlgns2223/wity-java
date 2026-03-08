@@ -30,6 +30,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public User getOrCreate(String email){
+        return
+    }
+
     public void delete(Long id){
         if (!userRepository.existsUserById(id)) {
             throw new IllegalArgumentException("삭제하려는 아이디가 없습니다.");

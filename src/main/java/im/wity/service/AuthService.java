@@ -52,8 +52,9 @@ public class AuthService {
     }
 
     public SignInResponse oauthSignIn(OauthSignInRequest signInRequest){
-        User user = oAuthManager.processOauth(signInRequest.code());
+        User user = oAuthManager.processOauth(signInRequest.code(),signInRequest.defaultPageName());
+        AuthResult authResult = authManager.process(user);
 
-        return null;
+        return SignInResponse.of(authResult, user);
     }
 }

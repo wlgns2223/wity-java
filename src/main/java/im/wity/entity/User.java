@@ -59,7 +59,17 @@ public class User extends BaseEntity {
                 .defaultPageName(defaultPageName)
                 .userName(userName)
                 .isOauth(provider.isOauth())
-                .isDeleted(false)
+                .build();
+    }
+
+    public static User createOauthUser(String email,PageName defaultPageName,String userName){
+        AuthProvider provider = AuthProvider.KAKAO;
+        return User.builder()
+                .email(email)
+                .authProvider(provider)
+                .defaultPageName(defaultPageName)
+                .userName(userName)
+                .isOauth(provider.isOauth())
                 .build();
     }
 
